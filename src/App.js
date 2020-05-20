@@ -8,13 +8,6 @@ import Message from './Message';
 class App extends Component {
 
   
-  constructor(){
-    super()
-    
-
-  }
-
-
   render(){
     const elems = [0,1,2,3,4,5,6,7,8,9]
     const {a,b} = this.props.question
@@ -43,12 +36,12 @@ class App extends Component {
 
               )}
 
-              {this.props.remainQuestion != 0 && 
+              {this.props.remainQuestion !== 0 && 
                 <li style = {{backgroundColor: "lightblue"}} 
                 className="list-group-item">calculez :  {a}x{b} = <Message/></li>
               }
 
-              {this.props.remainQuestion == 0 && 
+              {this.props.remainQuestion === 0 && 
                 <li style = {{backgroundColor: "lightblue"}} 
                 className="list-group-item">Jeux Terminer, cliquer sur le button  Reset terminated pour relancer </li>
               }

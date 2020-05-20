@@ -17,7 +17,7 @@ let elems = [ ...Array(10).keys() ].map(() => {
 
 export const getMultiplication = () => {
 
-    if(getRemain() != 0){
+    if(getRemain() !== 0){
 
         const index = getRandomInt(getRemain());
         console.log(index)

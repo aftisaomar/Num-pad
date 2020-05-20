@@ -1,26 +1,99 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {sendNumber,deleteResponse,sendAnswer,replay} from './actions/actions-type'
+import { connect } from 'react-redux';
+import Message from './Message';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  
+  constructor(){
+    super()
+    
+
+  }
+
+
+  render(){
+    const elems = [0,1,2,3,4,5,6,7,8,9]
+    const {a,b} = this.props.question
+
+    return (
+      <div className="container">
+        <h2>Calcul mental !</h2>
+        <div className="row">
+
+          <div className="col-sm-8">
+
+            <ul className="list-group">
+              {this.props.remainQuestion === this.props.numberQuestion && (
+
+                <li style = {{backgroundColor: "lightblue"}} className="list-group-item">
+                  Vous avez {this.props.numberQuestion} multiplications a faire utiliser les touches du clavier pour repondre
+                  <p>Bonne chance !</p>
+                </li>
+
+              )}
+              {this.props.remainQuestion !== this.props.numberQuestion && (
+
+                <li style = {{backgroundColor: "lightblue"}} className="list-group-item">
+                  <p>{this.props.message}</p>
+                </li>
+
+              )}
+
+              {this.props.remainQuestion != 0 && 
+                <li style = {{backgroundColor: "lightblue"}} 
+                className="list-group-item">calculez :  {a}x{b} = <Message/></li>
+              }
+
+              {this.props.remainQuestion == 0 && 
+                <li style = {{backgroundColor: "lightblue"}} 
+                className="list-group-item">Jeux Terminer, cliquer sur le button  Reset terminated pour relancer </li>
+              }
+
+            </ul>
+
+            {elems.map((elem,i)=>(
+              <button key={i} className="btn btn-primary" onClick={()=> this.props.sendNumber(elem)} style={{margin:"5px"}}>
+                {elem}
+              </button>
+            ))}
+            <br/>
+            <button className="btn btn-info" style={{margin:"5px"}} onClick={()=>this.props.sendAnswer()}>GO!</button><br/>
+            <button className="btn btn-danger" style={{margin:"5px"}} onClick={()=>this.props.deleteResponse()}>Reset choice</button><br/>
+            <button className="btn btn-danger" style={{margin:"5px"}} onClick={()=>this.props.replay()}>Reset terminated</button>
+
+          </div>
+
+
+          <div className="col-sm-4">
+            <ul className="list-group">
+            <li style = {{backgroundColor: "lightblue"}} className="list-group-item">Nombre de question restante : {this.props.remainQuestion}</li>
+            <li style = {{backgroundColor: "lightblue"}} className="list-group-item">Score : {this.props.score}</li>
+            </ul>
+            
+          </div>
+
+        </div>
+        
+      </div>
+    );
+
+  }
+
+  
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {values : state.values, score : state.score, 
+   question : state.question, remainQuestion : state.remainQuestion,
+   numberQuestion : state.numberQuestion,  message : state.message
+  }
+
+}
+
+const mapDispatchToProps = {sendNumber,deleteResponse,sendAnswer,replay}
+
+export default connect(mapStateToProps,mapDispatchToProps)(App)

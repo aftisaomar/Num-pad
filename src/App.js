@@ -54,7 +54,7 @@ class App extends Component {
               </button>
             ))}
             <br/>
-            <button className="btn btn-info" style={{margin:"5px"}} onClick={()=>this.props.sendAnswer()}>GO!</button><br/>
+            <button disabled = {this.props.remainQuestion === 0} className="btn btn-info" style={{margin:"5px"}} onClick={()=>this.props.sendAnswer()}>GO!</button><br/>
             <button className="btn btn-danger" style={{margin:"5px"}} onClick={()=>this.props.deleteResponse()}>Reset choice</button><br/>
             <button className="btn btn-danger" style={{margin:"5px"}} onClick={()=>this.props.replay()}>Reset terminated</button>
 

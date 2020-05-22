@@ -13,8 +13,6 @@ let elems = [ ...Array(10).keys() ].map(() => {
 });
 
 
-
-
 export const getMultiplication = () => {
 
     if(getRemain() !== 0){

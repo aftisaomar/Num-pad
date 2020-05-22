@@ -34,9 +34,9 @@ export default (state = stateInit, action = {}) =>  {
             //verifier le tableau values avec question.c
             let valueTmp = [...state.values]
             valueTmp = valueTmp + ""
-            valueTmp =  valueTmp.replace(',','');
+            valueTmp =  valueTmp.replace(/,/g,'');
             console.log(valueTmp)
-            if(valueTmp == state.question.c){
+            if(parseInt(valueTmp,10) === parseInt(state.question.c,10)){
                 return {
                     ...state,
                     question : getMultiplication(),

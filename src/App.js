@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {sendNumber,deleteResponse,sendAnswer,replay} from './actions/actions-type'
+import {sendNumber,deleteResponse,sendAnswer,replay, setName} from './actions/actions-type'
 import { connect } from 'react-redux';
 import Message from './Message';
+
+import { AllScores } from './screens/AllScores';
+import {postData} from './utiles/axios'
 
 class App extends Component {
 
@@ -11,8 +14,10 @@ class App extends Component {
   render(){
     const elems = [0,1,2,3,4,5,6,7,8,9]
     const {a,b} = this.props.question
+    
 
     return (
+      
       <div className="container">
         <h2>Calcul mental !</h2>
         <div className="row">
@@ -70,6 +75,33 @@ class App extends Component {
           </div>
 
         </div>
+
+           
+          <div style = {{
+            position: 'absolute', left: '50%', top: '80%',
+            transform: 'translate(-50%, -50%)'}}>
+            { this.props.remainQuestion === 0 &&
+             <> 
+              <input type="text" value = {this.props.namePlayer} onChange = {(event) => this.props.setName(event.target.value)} />                          
+              <button onClick = {()=> postData({
+                  name : this.props.namePlayer,
+                  points : this.props.score
+                }) }>Save
+              </button> 
+             </>
+
+            }
+
+              {console.log(this.props.namePlayer)}
+
+            <AllScores />
+
+          </div>      
+        
+
+
+
+
         
       </div>
     );
@@ -82,11 +114,12 @@ class App extends Component {
 const mapStateToProps = state => {
   return {values : state.values, score : state.score, 
    question : state.question, remainQuestion : state.remainQuestion,
-   numberQuestion : state.numberQuestion,  message : state.message
+   numberQuestion : state.numberQuestion,  message : state.message,
+   namePlayer : state.namePlayer
   }
 
 }
 
-const mapDispatchToProps = {sendNumber,deleteResponse,sendAnswer,replay}
+const mapDispatchToProps = {sendNumber,deleteResponse,sendAnswer,replay,setName}
 
 export default connect(mapStateToProps,mapDispatchToProps)(App)

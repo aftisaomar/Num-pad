@@ -1,5 +1,5 @@
 
-import {SEND_NUMBER,DELETE,SEND_ANSWER,REPLAY} from '../constantes/actions'
+import {SEND_NUMBER,DELETE,SEND_ANSWER,REPLAY, SET_NAME} from '../constantes/actions'
 import {getMultiplication,getRemain,newArray} from '../utiles/multiplications'
 
 const stateInit = {
@@ -9,7 +9,8 @@ const stateInit = {
     question : getMultiplication(),
     remainQuestion : getRemain(),
     numberQuestion : getRemain(),
-    message : ''
+    message : '',
+    namePlayer : ''
 }
 
 
@@ -68,6 +69,13 @@ export default (state = stateInit, action = {}) =>  {
                 numberQuestion : getRemain(),
                 message : ''
             }
+
+        case SET_NAME:
+            return {
+                ...state,
+                namePlayer : action.payload
+
+            }    
 
 
         default:
